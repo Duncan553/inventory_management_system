@@ -1,36 +1,38 @@
-# Inventory Management System (REST API)
+# Inventory Management System
 
-A Flask-based REST API for managing retail inventory, integrated with the OpenFoodFacts API.
+A Flask-based REST API for managing retail inventory, with CLI interface and OpenFoodFacts integration.
 
 ## Features
-- **Full CRUD**: Create, Read, Update, and Delete inventory items.
-- **External Integration**: Fetch product details using barcodes from OpenFoodFacts.
-- **CLI Interface**: A user-friendly terminal tool to interact with the API.
-- **Unit Testing**: Automated tests using `pytest`.
+- Full CRUD API (GET, POST, PATCH, DELETE)
+- Helper routes: search, low-stock, barcode fetch
+- CLI menu to interact with the API
+- External API integration (OpenFoodFacts by barcode)
+- 23 unit tests covering all features
 
-## Installation
-1. Install dependencies:
-   ```bash
-   pip install flask requests pytest
-Run the server:
+## Setup
+```bash
+pip install -r requirements.txt
+python3 app.py
+```
 
-Bash
-python app.py
-Run the CLI (in a separate terminal):
+## Run CLI
+```bash
+python3 cli.py
+```
 
-Bash
-python cli.py
-API Endpoints
-GET /inventory - Fetch all items
+## Run Tests
+```bash
+python3 -m pytest tests/ -v
+```
 
-POST /inventory - Add an item (Manual or Barcode)
-
-PATCH /inventory/<id> - Update price/stock
-
-DELETE /inventory/<id> - Remove an item
-
-Testing
-Run tests using:
-
-Bash
-pytest tests/test_api.py
+## API Routes
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | /inventory | Get all items |
+| GET | /inventory/<id> | Get one item |
+| POST | /inventory | Add new item |
+| PATCH | /inventory/<id> | Update item |
+| DELETE | /inventory/<id> | Delete item |
+| GET | /inventory/search?q= | Search by name |
+| GET | /inventory/low-stock | Items with stock < 10 |
+| POST | /inventory/fetch/<barcode> | Import from OpenFoodFacts |
